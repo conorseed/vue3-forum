@@ -11,6 +11,7 @@
 import CategoryListItem from '@/components/CategoryListItem'
 import { useCategoriesStore } from '@/stores/CategoriesStore'
 import { useForumsStore } from '@/stores/ForumsStore'
+import { useHead } from '@unhead/vue'
 
 const categoriesStore = useCategoriesStore()
 const forumsStore = useForumsStore()
@@ -23,6 +24,9 @@ try {
   console.error(error)
 }
 
+useHead({
+  title: 'Vue3 Masterclass Forum'
+})
 </script>
 
 <style scoped>

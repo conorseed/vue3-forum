@@ -31,6 +31,7 @@ import { useForumsStore } from '@/stores/ForumsStore'
 import { useThreadsStore } from '@/stores/ThreadsStore'
 import { useUsersStore } from '@/stores/UsersStore'
 import { useRoute, useRouter } from 'vue-router'
+import { useHead } from '@unhead/vue'
 
 const forumsStore = useForumsStore()
 const threadsStore = useThreadsStore()
@@ -85,6 +86,15 @@ async function fetchUsers (threads) {
   const userIds = threads.length ? threads.map(t => t.userId) : []
   await useUsersStore().fetchUsers({ ids: userIds })
 }
+
+const title = ref(`${forum.value?.name} | Vue3 Masterclass Forum`)
+useHead({
+  title: () => title.value,
+  meta: [
+  {property: "og:title", content: () => title.value},
+  {name: "twitter:title", content: () => title.value}
+   ]
+})
 </script>
 
 <style scoped>

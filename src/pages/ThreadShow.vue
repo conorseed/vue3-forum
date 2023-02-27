@@ -39,6 +39,7 @@ import { useUsersStore } from '@/stores/UsersStore'
 import { useRoute } from 'vue-router'
 import useNotifications from '@/composables/useNotifications'
 import difference from 'lodash/difference'
+import { useHead } from '@unhead/vue'
 
 const route = useRoute()
 const threadsStore = useThreadsStore()
@@ -117,6 +118,15 @@ onMounted(() => {
   loading.value = false
 })
 
+
+const title = ref(`${thread.value?.title} | Vue3 Masterclass Forum`)
+useHead({
+  title: () => title.value,
+  meta: [
+  {property: "og:title", content: () => title.value},
+  {name: "twitter:title", content: () => title.value}
+   ]
+})
 </script>
 
 <style scoped>

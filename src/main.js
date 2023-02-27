@@ -7,6 +7,8 @@ import DirectiveClickOutside from '@/plugins/DirectiveClickOutside'
 import DirectivePageScroll from '@/plugins/DirectivePageScroll'
 import Vue3Pagination from '@/plugins/Vue3Pagination'
 import VeeValidatePlugin from '@/plugins/VeeValidatePlugin'
+import { createHead } from '@vueuse/head'
+import { upperFirst, camelCase } from 'lodash'
 
 /*
  * FIREBASE SHIT
@@ -29,22 +31,26 @@ app.use(DirectivePageScroll)
 app.use(Vue3Pagination)
 app.use(VeeValidatePlugin)
 
+const head = createHead()
+app.use(head)
+
 // PINIA
 const pinia = createPinia()
 pinia.use(({ store }) => { store.router = markRaw(router) })
 app.use(pinia)
 
 // register all base components
-const baseComponents = require.context('./components', true, /App[A-Z]\w+\.(vue|js)$/)
-baseComponents.keys().forEach((filename) => {
-  let baseComponentConfig = baseComponents(filename)
-  baseComponentConfig = baseComponentConfig.default || baseComponentConfig
-  const baseComponentName = baseComponentConfig.name || (
-    filename
-      .replace(/^.+\//, '')
-      .replace(/\.\w+$/, '')
-  )
-  app.component(baseComponentName, baseComponentConfig)
+const componentFiles = import.meta.globEager(
+  '@/components/App*.vue'
+);
+Object.entries(componentFiles).forEach(([path, m]) => {
+  const componentName = upperFirst(
+    camelCase(path.split('/').pop().replace(/\.\w+$/, ''))
+  );
+
+  app.component(
+    `${componentName}`, m.default
+  );
 })
 
 app.mount('#app')
