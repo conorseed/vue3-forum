@@ -1,4 +1,3 @@
-import Home from '@/pages/HomeIndex'
 import { checkResourceExistsGuard, findById } from '@/helpers'
 import { useCategoriesStore } from '../stores/CategoriesStore'
 import { useForumsStore } from '../stores/ForumsStore'
@@ -9,25 +8,25 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import(/* webpackChunkName: "Home" */'@/pages/HomeIndex')
   },
   {
     path: '/me',
     name: 'Profile',
-    component: () => import('@/pages/ProfileShow.vue'),
+    component: () => import(/* webpackChunkName: "Profile" */'@/pages/ProfileShow.vue'),
     meta: { toTop: true, smoothScroll: true, requiresAuth: true }
   },
   {
     path: '/me/edit',
     name: 'ProfileEdit',
-    component: () => import('@/pages/ProfileShow.vue'),
+    component: () => import(/* webpackChunkName: "Profile Edit" */'@/pages/ProfileShow.vue'),
     props: { edit: true },
     meta: { requiresAuth: true }
   },
   {
     path: '/category/:id',
     name: 'CategoryShow',
-    component: () => import('@/pages/CategoryShow'),
+    component: () => import(/* webpackChunkName: "Category" */'@/pages/CategoryShow'),
     props: true,
     async beforeEnter (to, from, next) {
       const redirect = await checkResourceExistsGuard(useCategoriesStore().categories, 'categories', '🏷', to)
@@ -41,7 +40,7 @@ const routes = [
   {
     path: '/forum/:id',
     name: 'ForumShow',
-    component: () => import('@/pages/ForumShow'),
+    component: () => import(/* webpackChunkName: "Forum" */'@/pages/ForumShow'),
     props: true,
     async beforeEnter (to, from, next) {
       const redirect = await checkResourceExistsGuard(useForumsStore().forums, 'forums', '🗣', to)
@@ -55,14 +54,14 @@ const routes = [
   {
     path: '/forum/:forumId/thread/create',
     name: 'ThreadCreate',
-    component: () => import('@/pages/ThreadCreate'),
+    component: () => import(/* webpackChunkName: "ThreadCreate" */'@/pages/ThreadCreate'),
     props: true,
     meta: { requiresAuth: true }
   },
   {
     path: '/thread/:id',
     name: 'ThreadShow',
-    component: () => import('@/pages/ThreadShow'),
+    component: () => import(/* webpackChunkName: "Thread" */'@/pages/ThreadShow'),
     props: true,
     async beforeEnter (to, from, next) {
       const redirect = await checkResourceExistsGuard(useThreadsStore().threads, 'threads', '📄', to)
@@ -76,7 +75,7 @@ const routes = [
   {
     path: '/thread/:id/edit',
     name: 'ThreadEdit',
-    component: () => import('@/pages/ThreadEdit'),
+    component: () => import(/* webpackChunkName: "ThreadEdit" */'@/pages/ThreadEdit'),
     props: true,
     // meta: { requiresAuth: true },
     async beforeEnter (to, from, next) {
@@ -100,13 +99,13 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: () => import('@/pages/RegisterShow'),
+    component: () => import(/* webpackChunkName: "Register" */'@/pages/RegisterShow'),
     meta: { requiresGuest: true }
   },
   {
     path: '/signin',
     name: 'SignIn',
-    component: () => import('@/pages/SignInShow'),
+    component: () => import(/* webpackChunkName: "SignIn" */'@/pages/SignInShow'),
     meta: { requiresGuest: true }
   },
   {
@@ -120,12 +119,12 @@ const routes = [
   {
     path: '/signedout',
     name: 'SignedOut',
-    component: () => import('@/pages/SignedOutShow')
+    component: () => import(/* webpackChunkName: "SignedOut" */'@/pages/SignedOutShow')
   },
   {
     path: '/:pathMatch(.*)*',
     name: '404',
-    component: () => import('@/pages/404NotFound')
+    component: () => import(/* webpackChunkName: "404" */'@/pages/404NotFound')
   }
 ]
 
