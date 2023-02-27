@@ -1,4 +1,6 @@
-# masterclass
+# 📝 Vue3 Forum
+
+A simple forum built in Vue3 Composition API, using Firebase 🔥 as a database, authentication and storage service.
 
 ## Project setup
 ```
