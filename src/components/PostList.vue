@@ -4,11 +4,11 @@
         <div v-for="post in posts" :key="post.id" class="post">
 
             <div v-if="usersStore.userById(post.userId)" class="user-info">
-                <a href="#" class="user-name">{{ usersStore.userById(post.userId).name }}</a>
+                <router-link :to="{name:'ProfileOther', params:{id: usersStore.userById(post.userId)?.id}}" class="user-name">{{ usersStore.userById(post.userId).name }}</router-link>
 
-                <a href="#">
+                <router-link :to="{name:'ProfileOther', params:{id: usersStore.userById(post.userId)?.id}}">
                     <app-user-avatar size="large" :user="usersStore.userById(post.userId)" />
-                </a>
+                </router-link>
 
                 <p class="desktop-only text-small">{{usersStore.userById(post.userId).postsCount}} post{{usersStore.userById(post.userId).postsCount === 1 ? '' : 's'}}</p>
                 <p class="desktop-only text-small">{{usersStore.userById(post.userId).threadsCount}} thread{{usersStore.userById(post.userId).threadsCount === 1 ? '' : 's'}}</p>

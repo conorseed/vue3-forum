@@ -2,7 +2,7 @@
   <div class="profile-card">
 
     <p class="text-center">
-        <app-user-avatar size="xlarge" />
+        <app-user-avatar size="xlarge" :user="user" />
     </p>
 
     <h1 class="title">{{ user.username }}</h1>
@@ -29,12 +29,13 @@
 
   </div>
   <div class="text-center">
-    <router-link :to="{name: 'ProfileEdit'}" class="btn-green btn-small">Edit Profile</router-link>
+    <router-link v-if="useUsersStore().authId === user.id" :to="{name: 'ProfileEdit'}" class="btn-green btn-small">Edit Profile</router-link>
   </div>
 </template>
 
 <script setup>
 import { defineProps } from 'vue'
+import { useUsersStore } from '@/stores/UsersStore'
 
 defineProps({
   user: {

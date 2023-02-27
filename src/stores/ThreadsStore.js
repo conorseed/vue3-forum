@@ -43,8 +43,8 @@ export const useThreadsStore = defineStore('ThreadsStore', {
     async fetchThreads (payload) {
       return await fetchItems({ emoji: '📄', resource: 'threads', store: this.threads, ...payload })
     },
-    async fetchAuthUsersThreads () {
-      const threads = await firebase.firestore().collection('threads').where('userId', '==', useUsersStore().authId).get()
+    async fetchUsersThreads ({userId}) {
+      const threads = await firebase.firestore().collection('threads').where('userId', '==', userId).get()
       threads.forEach(thread => {
         upsert(docToResource(thread), this.threads)
       })

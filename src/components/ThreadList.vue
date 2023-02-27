@@ -8,7 +8,7 @@
                   <router-link :to="{name: 'ThreadShow', params: {id: thread.id}}">{{ thread.title }}</router-link>
               </p>
               <p class="text-faded text-xsmall">
-                  By <router-link :to="{}">{{ usersStore.userById(thread.userId).name }}</router-link>, <app-date :timestamp="thread.publishedAt" />.
+                  By <router-link :to="{name: 'ProfileOther', params: {id: usersStore.userById(thread.userId).id}}">{{ usersStore.userById(thread.userId).name }}</router-link>, <app-date :timestamp="thread.publishedAt" />.
               </p>
           </div>
           <div v-if="usersStore.userById(thread.userId)" class="activity">
@@ -18,7 +18,7 @@
               <app-user-avatar size="medium" :user="usersStore.userById(thread.userId)" />
               <div>
                   <p class="text-xsmall">
-                    <router-link :to="{}">{{ usersStore.userById(thread.userId).name }}</router-link>
+                    <router-link :to="{name: 'ProfileOther', params: {id: usersStore.userById(thread.userId).id}}">{{ usersStore.userById(thread.userId).name }}</router-link>
                   </p>
                   <p class="text-xsmall text-faded"><app-date :timestamp="thread.publishedAt" /></p>
               </div>

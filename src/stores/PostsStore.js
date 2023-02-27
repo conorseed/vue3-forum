@@ -18,10 +18,10 @@ export const usePostsStore = defineStore('PostsStore', {
     async fetchPosts (payload) {
       return await fetchItems({ emoji: '💬', resource: 'posts', store: this.posts, ...payload })
     },
-    async fetchAuthUsersPosts ({ startAfter }) {
+    async fetchUsersPosts ({ startAfter, userId }) {
       let query = await firebase.firestore()
         .collection('posts')
-        .where('userId', '==', useUsersStore().authId)
+        .where('userId', '==', userId)
         .orderBy('publishedAt', 'desc')
         .limit(10)
 

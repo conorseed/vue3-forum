@@ -36,28 +36,33 @@ import { useUsersStore } from '@/stores/UsersStore'
 import { usePostsStore } from '@/stores/PostsStore'
 import { useThreadsStore } from '@/stores/ThreadsStore'
 
-defineProps({
-  edit: { type: Boolean, default: false }
-})
 const usersStore = useUsersStore()
 
-const { authedUser: user } = storeToRefs(usersStore)
-
+const props = defineProps({
+  edit: { type: Boolean, default: false },
+  id: { type: String }
+})
+const user = computed(() => {
+  return usersStore.userById(props.id) || usersStore.authedUser
+})
 const lastPostFetched = computed(() => {
-  if (user.value.posts.length === 0) {
+  if (!user.value || user.value.posts.length === 0) {
     return null
   }
   return user.value.posts[user.value.posts.length - 1]
 })
 
 const fetchUserPosts = async () => {
-  return usePostsStore().fetchAuthUsersPosts({
-    startAfter: lastPostFetched.value
+  return usePostsStore().fetchUsersPosts({
+    startAfter: lastPostFetched.value,
+    userId: user.value.id
   })
 }
 
 await fetchUserPosts()
-await useThreadsStore().fetchAuthUsersThreads()
+await useThreadsStore().fetchUsersThreads({
+  userId: user.value.id
+})
 
 </script>
 

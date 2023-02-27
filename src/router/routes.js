@@ -17,6 +17,21 @@ const routes = [
     meta: { toTop: true, smoothScroll: true, requiresAuth: true }
   },
   {
+    path: '/profile/:id',
+    name: 'ProfileOther',
+    component: () => import('@/pages/ProfileShow.vue'),
+    props: true,
+    meta: { toTop: true, smoothScroll: true },
+    async beforeEnter (to, from, next) {
+      const redirect = await checkResourceExistsGuard(useUsersStore().users, 'users', '🧑', to)
+      if (redirect) {
+        next(redirect)
+      } else {
+        next()
+      }
+    }
+  },
+  {
     path: '/me/edit',
     name: 'ProfileEdit',
     component: () => import('@/pages/ProfileShow.vue'),

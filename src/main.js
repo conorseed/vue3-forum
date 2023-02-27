@@ -8,7 +8,8 @@ import DirectivePageScroll from '@/plugins/DirectivePageScroll'
 import Vue3Pagination from '@/plugins/Vue3Pagination'
 import VeeValidatePlugin from '@/plugins/VeeValidatePlugin'
 import { createHead } from '@vueuse/head'
-import { upperFirst, camelCase } from 'lodash'
+import upperFirst from 'lodash/upperFirst'
+import camelCase from 'lodash/camelCase'
 
 /*
  * FIREBASE SHIT
