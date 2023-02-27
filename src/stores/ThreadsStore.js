@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { usePostsStore } from './PostsStore'
 import { useUsersStore } from './UsersStore'
 import { useForumsStore } from './ForumsStore'
-import { findById, filterByValue, addChildToParent, fetchItem, fetchItems, docToResource, upsert, makeFetchItemFunction } from '@/helpers'
+import { findById, filterByValue, addChildToParent, fetchItem, fetchItems, docToResource, upsert } from '@/helpers'
 import firebase from '@/helpers/firebase'
 import chunk from 'lodash/chunk'
 
