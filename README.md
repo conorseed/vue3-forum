@@ -2,6 +2,8 @@
 
 A simple forum built in Vue3 Composition API, using Firebase 🔥 as a database, authentication and storage service.
 
+View it here: https://vue3forummasterclass.netlify.app/
+
 ## Project setup
 ```
 npm install
