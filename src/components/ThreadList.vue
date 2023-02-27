@@ -38,7 +38,7 @@ import { useUsersStore } from '@/stores/UsersStore'
 const usersStore = useUsersStore()
 usersStore.fetchUser(usersStore.authId)
 
-const props = defineProps({
+defineProps({
   threads: {
     type: Array,
     required: true

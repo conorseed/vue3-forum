@@ -53,7 +53,7 @@ const form = ref({
 const avatarPreview = ref(null)
 
 async function register () {
-  const newUser = await useUsersStore().registerUserWithEmailAndPassword(form.value)
+  await useUsersStore().registerUserWithEmailAndPassword(form.value)
   router.push('/')
 }
 
